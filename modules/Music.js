@@ -300,7 +300,7 @@ const Music = {
                 'color':setting.color,
                 'title':lang.music.pause.success,
                 'thumbnail':server.queue[0].image,
-                'desc':'`'+server.queue[0].title+'` '+lang.music.pause
+                'desc':'`'+server.queue[0].title+'` '+lang.music.pause.paused
             },message));
         } else message.channel.send(lang.music.pause.alreadypause);
     },
@@ -313,7 +313,7 @@ const Music = {
                 'color':setting.color,
                 'title':lang.music.resume.success,
                 'thumbnail':server.queue[0].image,
-                'desc':'`'+server.queue[0].title+'` '+lang.music.resume
+                'desc':'`'+server.queue[0].title+'` '+lang.music.resume.resumed
             }));
             server.dispatcher.resume();
         } else message.channel.send(lang.music.resume.alreadyplay);

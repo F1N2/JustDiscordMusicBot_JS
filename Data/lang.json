@@ -41,12 +41,14 @@
             "resume":{
                 "voice":"You need to be in a Voice Channel.",
                 "alreadyplay":"The song is already playing.",
-                "success":"Song Resumed"
+                "success":"Song Resumed",
+                "resumed":"Resumed"
             },
             "pause":{
                 "voice":"You need to be in a Voice Channel.",
                 "alreadypause":"The song is already paused.",
-                "success":"Song Paused"
+                "success":"Song Paused",
+                "paused":"Paused"
             },
             "stop":{
                 "noplay":"The song is not playing.",
@@ -108,12 +110,14 @@
             "resume":{
                 "voice":"보이스 채널에 들어가 있어야합니다.",
                 "alreadyplay":"곡이 재생중입니다.",
-                "success":"곡을 다시 재생합니다."
+                "success":"곡을 다시 재생합니다.",
+                "resumed":"곡을 다시 재생중입니다."
             },
             "pause":{
                 "voice":"보이스 채널에 들어가 있어야합니다.",
                 "alreadypause":"곡이 이미 일시정지되어 있습니다.",
-                "success":"곡이 일시정지 되었습니다."
+                "success":"곡이 일시정지 되었습니다.",
+                "paused":"곡을 일시정지했습니다."
             },
             "stop":{
                 "noplay":"노래를 재생하고 있지 않습니다.",
