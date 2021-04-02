@@ -24,10 +24,10 @@
                 "speak":"I dont't have permission to speak in the Voice Channel :/",
                 "nofind":"I can't find the song.",
                 "add":"{0} Song(s) has been added to the queue!",
-                "title":"Title",
-                "owner":"Author",
-                "length":"Lenght",
-                "search":"Search Results"
+                "search":"`{0}` Search Results ( {1} / {2} )",
+                "title":"➯ Title : {0}",
+                "owner":"➯ Author : {0}",
+                "length":"➯ Lenght : `{0}`"
             },
             "skip":{
                 "nofind":"I can't find the song in queue.",
@@ -56,15 +56,15 @@
             },
             "np":{
                 "np":"Now Playing",
-                "title":"Title",
-                "owner":"Author",
-                "length":"Lenght",
-                "status":"Status"
+                "title":"➯ Title : {0}",
+                "owner":"➯ Author : {0}",
+                "length":"➯ Lenght : `{0}` / `{1}`",
+                "status":"➯ Status : {0}"
             },
             "list":{
                 "nofind":"I can't find the song in queue.",
-                "queue":"Song Queue",
-                "status":"Status"
+                "queue":"Song Queue ( {0} / {1} )",
+                "status":"➯ Status : {0}"
             }
         },
         "unexpected":"Unexpected Error Occured."
@@ -93,10 +93,10 @@
                 "speak":"보이스채널에서 노래를 틀수 있는 권한이 없습니다 :/",
                 "nofind":"곡을 찾지 못했습니다.",
                 "add":"{0}개의 곡(들)이 재생목록에 추가되었습니다!",
-                "title":"제목",
-                "owner":"게시자",
-                "length":"길이",
-                "search":"검색 결과"
+                "search":"`{0}` 검색 결과 ( {1} / {2} )",
+                "title":"➯ 제목 : {0}",
+                "owner":"➯ 게시자 : {0}",
+                "length":"➯ 길이 : `{0}`"
             },
             "skip":{
                 "nofind":"재생목록에 등록된 곡이 없습니다.",
@@ -125,15 +125,15 @@
             },
             "np":{
                 "np":"현재 재생중인 곡",
-                "title":"제목",
-                "owner":"게시자",
-                "length":"길이",
-                "status":"상태"
+                "title":"➯ 제목 : {0}",
+                "owner":"➯ 게시자 : {0}",
+                "length":"➯ 길이 : `{0}` / `{1}`",
+                "status":"➯ 상태 : {0}"
             },
             "list":{
                 "nofind":"재생목록에 등록된 곡이 없습니다.",
-                "queue":"재생 목록",
-                "status":"상태"
+                "queue":"재생 목록 ( {0} / {1} )",
+                "status":"➯ 상태 : {0}"
             }
         },
         "unexpected":"예기치 못한 오류가 발생했습니다."

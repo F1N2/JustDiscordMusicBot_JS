@@ -58,13 +58,14 @@ function shuffle(a) {
 }
 
 function toTime(sec) {
-    let sec_num = Number(sec);
-    let hours = sec_num/3600|0;
-    let minutes = sec_num/60%60|0;
-    let seconds = sec_num%60;
-    minutes = minutes<9 &&hours!=0? '0'+minutes : minutes;
-    seconds = seconds<9?"0"+seconds:seconds;
-    return hours==0?minutes+":"+seconds:hours+":"+minutes+":"+seconds
+    sec=+sec;
+    let h = sec/3600|0;
+    let m = sec/60%60|0;
+    let s = sec%60;
+    h=h>0?h+':':'';
+    m=m<10&&h!=0?'0'+m:m;
+    s=s<10?'0'+s:s;
+    return h+m+':'+s;
 }
 
 const Music = {
@@ -82,10 +83,10 @@ const Music = {
                 'title':lang.music.np.np,
                 'thumbnail':server.queue[0].image,
                 'desc':[
-                    '➯ '+lang.music.np.title+' : '+server.queue[0].title,
-                    '➯ '+lang.music.np.owner+' : '+server.queue[0].owner,
-                    '➯ '+lang.music.np.length+' : `'+toTime(server.dispatcher.streamTime/1000|0)+'` / `'+server.queue[0].length+'`',
-                    '➯ '+lang.music.np.status+' : '+(!server.repeat?!server.pause?'▶️':'⏸':'🔄')
+                    lang.music.np.title.format(server.queue[0].title),
+                    lang.music.np.owner.format(server.queue[0].owner),
+                    lang.music.np.length.format(toTime(server.dispatcher.streamTime/1000|0),server.queue[0].length),
+                    lang.music.np.status.format(!server.repeat?!server.pause?'▶️':'⏸':'🔄')
                 ].join('\n')
             }));
         } else message.channel.send(lang.music.no_song_play);
@@ -165,12 +166,12 @@ const Music = {
         let c = 0;
         messageReaction.send(Embed.title_desc({
             'color':setting.color,
-            'title':'`'+k+'` '+lang.music.play.search+' ( '+(c+1)+' / '+list.length+' )',
+            'title':lang.music.play.search.format(k,c+1,list.length),
             'thumbnail':list[c].image,
             'desc':[
-                '➯ '+lang.music.play.title+' : '+list[c].title,
-                '➯ '+lang.music.play.owner+' : '+list[c].owner,
-                '➯ '+lang.music.play.length+' : `'+list[c].length+'`'
+                lang.music.play.title.format(list[c].title),
+                lang.music.play.owner.format(list[c].owner),
+                lang.music.play.length.format(list[c].length)
             ].join('\n')
         }),['◀️','✅','▶️','❌'],(reaction,user,message)=>{
             if(user.id==author) {
@@ -193,12 +194,12 @@ const Music = {
                     message.channel.send(lang.music.select_canceled);
                 } else message.edit(Embed.title_desc({
                     'color':setting.color,
-                    'title':'`'+k+'` '+lang.music.play.search+' ( '+(c+1)+' / '+list.length+' )',
+                    'title':lang.music.play.search.format(k,c+1,list.length),
                     'thumbnail':list[c].image,
                     'desc':[
-                        '➯ '+lang.music.play.title+' : '+list[c].title,
-                        '➯ '+lang.music.play.owner+' : '+list[c].owner,
-                        '➯ '+lang.music.play.length+' : `'+list[c].length+'`'
+                        lang.music.play.title.format(list[c].title),
+                        lang.music.play.owner.format(list[c].owner),
+                        lang.music.play.length.format(list[c].length)
                     ].join('\n')
                 }));
             }
@@ -212,9 +213,9 @@ const Music = {
             'thumbnail':music.image,
             'title':lang.music.play.add.format(c),
             'desc':[
-                '➯ '+lang.music.play.title+' : '+music.title,
-                '➯ '+lang.music.play.owner+' : '+music.owner,
-                '➯ '+lang.music.play.length+' : `'+music.length+'`'
+                lang.music.play.title.format(music.title),
+                lang.music.play.owner.format(music.owner),
+                lang.music.play.length.format(music.length)
             ]
         });
     },
@@ -244,8 +245,8 @@ const Music = {
             let c = 0;
             messageReaction.send(Embed.title_desc({
                 'color':setting.color,
-                'title':lang.music.list.queue+' ( '+(c+1)+' / '+result.length+' ) ',
-                'desc':result[c].replace(/`1`/g,'▶️')+'\n\n➯ '+lang.music.list.status+' : '+(!server.repeat?!server.pause?'▶️':'⏸':'🔄')
+                'title':lang.music.list.queue.format(c+1,result.length),
+                'desc':result[c].replace(/`1`/g,'▶️')+'\n\n'+lang.music.list.status.format(!server.repeat?!server.pause?'▶️':'⏸':'🔄')
             },message),['◀️','❌','▶️'],(reaction,user,message) => {
                 if(author==user.username) {
                     if(reaction.emoji.name=='◀️' && c>0) c--;
@@ -253,8 +254,8 @@ const Music = {
                     if(reaction.emoji.name=='❌') message.delete();
                     else message.edit(Embed.title_desc({
                         'color':setting.color,
-                        'title':lang.music.list.queue+' ( '+(c+1)+' / '+result.length+' ) ',
-                        'desc':result[c].replace(/`1`/g,'▶️')+'\n\n➯ '+lang.music.list.status+' : '+(!server.repeat?!server.pause?'▶️':'⏸':'🔄')
+                        'title':lang.music.list.queue.format(c+1,result.length),
+                        'desc':result[c].replace(/`1`/g,'▶️')+'\n\n'+lang.music.list.status.format(!server.repeat?!server.pause?'▶️':'⏸':'🔄')
                     },message));
                 }
             });
