@@ -1,0 +1,137 @@
+{
+    "list":["en","ko"],
+    "en":{
+        "help":{
+            "dafault":{
+                "title":"Commands List",
+                "desc":[
+                    "`j.help | j.?`",
+                    "`j.play (url|string)`",
+                    "`j.skip`",
+                    "`j.stop`",
+                    "`j.repeat`",
+                    "`j.pause`",
+                    "`j.resume`",
+                    "`j.list`",
+                    "`j.np`"
+                ]
+            }
+        },
+        "music":{
+            "play":{
+                "voice":"You need to be in a Voice Channel.",
+                "connect":"I don't have permission to connect to the Voice Channel :/",
+                "speak":"I dont't have permission to speak in the Voice Channel :/",
+                "nofind":"I can't find the song.",
+                "add":"{0} Song(s) has been added to the queue!",
+                "title":"Title",
+                "owner":"Author",
+                "length":"Lenght",
+                "search":"Search Results"
+            },
+            "skip":{
+                "nofind":"I can't find the song in queue.",
+                "toomuch":"There are too many songs to skip.",
+                "success":"Successfully skipped {0} Song(s)."
+            },
+            "repeat":{
+                "on":"Turned on the repeat setting.",
+                "off":"Turned off the repeat setting."
+            },
+            "resume":{
+                "voice":"You need to be in a Voice Channel.",
+                "alreadyplay":"The song is already playing.",
+                "success":"Song Resumed"
+            },
+            "pause":{
+                "voice":"You need to be in a Voice Channel.",
+                "alreadypause":"The song is already paused.",
+                "success":"Song Paused"
+            },
+            "stop":{
+                "noplay":"The song is not playing.",
+                "success":"The song has stopped playing."
+            },
+            "np":{
+                "np":"Now Playing",
+                "title":"Title",
+                "owner":"Author",
+                "length":"Lenght",
+                "status":"Status"
+            },
+            "list":{
+                "nofind":"I can't find the song in queue.",
+                "queue":"Song Queue",
+                "status":"Status"
+            }
+        },
+        "unexpected":"Unexpected Error Occured."
+    },
+    "ko":{
+        "help":{
+            "dafault":{
+                "title":"명령어 목록",
+                "desc":[
+                    "`j.help | j.?`",
+                    "`j.play (url|string)`",
+                    "`j.skip`",
+                    "`j.stop`",
+                    "`j.repeat`",
+                    "`j.pause`",
+                    "`j.resume`",
+                    "`j.list`",
+                    "`j.np`"
+                ]
+            }
+        },
+        "music":{
+            "play":{
+                "voice":"보이스 채널에 들어가 있어야합니다.",
+                "connect":"보이스채널에 들어갈 권한이 없습니다 :/",
+                "speak":"보이스채널에서 노래를 틀수 있는 권한이 없습니다 :/",
+                "nofind":"곡을 찾지 못했습니다.",
+                "add":"{0}개의 곡(들)이 재생목록에 추가되었습니다!",
+                "title":"제목",
+                "owner":"게시자",
+                "length":"길이",
+                "search":"검색 결과"
+            },
+            "skip":{
+                "nofind":"재생목록에 등록된 곡이 없습니다.",
+                "toomuch":"재생목록에 있는 곡의 수보다 요청한 수가 많습니다.",
+                "success":"{0}개의 곡(들)을 Skip했습니다."
+            },
+            "repeat":{
+                "on":"반복 설정을 켰습니다.",
+                "off":"반복 설정을 껐습니다."
+            },
+            "resume":{
+                "voice":"보이스 채널에 들어가 있어야합니다.",
+                "alreadyplay":"곡이 재생중입니다.",
+                "success":"곡을 다시 재생합니다."
+            },
+            "pause":{
+                "voice":"보이스 채널에 들어가 있어야합니다.",
+                "alreadypause":"곡이 이미 일시정지되어 있습니다.",
+                "success":"곡이 일시정지 되었습니다."
+            },
+            "stop":{
+                "noplay":"노래를 재생하고 있지 않습니다.",
+                "success":"곡 재생을 중지합니다."
+            },
+            "np":{
+                "np":"현재 재생중인 곡",
+                "title":"제목",
+                "owner":"게시자",
+                "length":"길이",
+                "status":"상태"
+            },
+            "list":{
+                "nofind":"재생목록에 등록된 곡이 없습니다.",
+                "queue":"재생 목록",
+                "status":"상태"
+            }
+        },
+        "unexpected":"예기치 못한 오류가 발생했습니다."
+    }
+}
