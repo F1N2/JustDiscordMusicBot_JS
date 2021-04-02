@@ -120,7 +120,7 @@ const Music = {
                     'url':'https://www.youtube.com/watch?v='+data[i].playlistVideoRenderer.videoId,
                     'image':data[i].playlistVideoRenderer.thumbnail.thumbnails[0].url
                 });
-                if(server.queue.length>0) vc.join().then((c)=>this.ytdl(c));
+                if(server.queue.length==data.length) vc.join().then((c)=>this.ytdl(c));
                 message.channel.send(this.playEmbed(data.length));
             } else if(keyword.indexOf('https://')==0) {//Video Link
                 keyword = keyword.indexOf('youtu.be')!=-1?keyword.split('/')[3]:keyword.split('?v=')[1];//Get Video Id
@@ -134,7 +134,7 @@ const Music = {
                     'url':'https://www.youtube.com/watch?v='+data.videoId,
                     'image':data.thumbnail.thumbnails[0].url
                 });
-                if(server.queue.length>0) vc.join().then((c)=>this.ytdl(c));
+                if(server.queue.length==1) vc.join().then((c)=>this.ytdl(c));
                 message.channel.send(this.playEmbed(1));
             } else {//Search Keyword
                 let data = await request('https://www.youtube.com/results?search_query='+encodeURI(keyword)+'&sp=CAASAhAB');
@@ -186,7 +186,7 @@ const Music = {
                         'url':list[c].url,
                         'image':list[c].image
                     });
-                    if(server.queue.length>0) vc.join().then((c)=>this.ytdl(c));
+                    if(server.queue.length==1) vc.join().then((c)=>this.ytdl(c));
                     message.channel.send(this.playEmbed(1));
                 } else if(emoji=='❌') {
                     message.delete();
