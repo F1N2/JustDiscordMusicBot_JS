@@ -9,6 +9,7 @@
 // request-promise
 // ytdl-core
 // opusscript
+// fs
 // 
 // Windows : npm install ffmpeg-static
 // Linux : sudo apt-get install ffmpeg
@@ -30,16 +31,18 @@ lang = lang.list.indexOf(setting.lang)!=-1?lang[setting.lang]:lang.en;
 let prefix = setting.prefix;
 
 const File = {
-    read:function(a) {
+    read:function(a,b) {
         try {
-            return fs.readFileSync(a,{encoding:'utf8'});
+            return fs.readFileSync(a,b);
         } catch(e) {
             return null;
         }
     },
-    save:function(a,c) {
+    save:function(a,c,d) {
+        let b = a.split('/').pop();
+        a = a.replace('/'+b,'');
         if(!fs.existsSync(a)) fs.mkdirSync(a);
-        fs.writeFileSync(a,c);
+        fs.writeFileSync(a+'/'+b,c,d);
         return true;
     },
     remove:function(a) {
@@ -47,6 +50,12 @@ const File = {
         return true;
     }
 }
+
+String.prototype.format = String.prototype.f = function() {
+    var s = this,i = arguments.length;
+    while (i--) s = s.replace(new RegExp('\\{' + i + '\\}', 'gm'), arguments[i]);
+    return s;
+};
 
 let messageReaction = {};
 
@@ -102,7 +111,7 @@ client.on('message', async (message) => {
             if(msg=='help' || msg=='?') message.channel.send(Embed.title_desc({
                 'color':setting.color,
                 'title':lang.help.dafault.title,
-                'desc':lang.help.dafault.desc.join('\n')
+                'desc':lang.help.dafault.desc.join('\n').format(prefix)
             }));
     
             if(msg.indexOf('play ')==0 || msg.indexOf('p ')==0) Music.play(msg.replace(/play /g,'').replace(/p /g,''));

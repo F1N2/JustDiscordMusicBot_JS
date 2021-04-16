@@ -5,15 +5,15 @@
             "dafault":{
                 "title":"Commands List",
                 "desc":[
-                    "`j.help | j.?`",
-                    "`j.play (url|string)`",
-                    "`j.skip`",
-                    "`j.stop`",
-                    "`j.repeat`",
-                    "`j.pause`",
-                    "`j.resume`",
-                    "`j.list`",
-                    "`j.np`"
+                    "`{0}help | {0}?`",
+                    "`{0}play (url|string)`",
+                    "`{0}skip`",
+                    "`{0}stop`",
+                    "`{0}repeat`",
+                    "`{0}pause`",
+                    "`{0}resume`",
+                    "`{0}list`",
+                    "`{0}np`"
                 ]
             }
         },
@@ -74,15 +74,15 @@
             "dafault":{
                 "title":"명령어 목록",
                 "desc":[
-                    "`j.help | j.?`",
-                    "`j.play (url|string)`",
-                    "`j.skip`",
-                    "`j.stop`",
-                    "`j.repeat`",
-                    "`j.pause`",
-                    "`j.resume`",
-                    "`j.list`",
-                    "`j.np`"
+                    "`{0}help | {0}?`",
+                    "`{0}play (url|string)`",
+                    "`{0}skip`",
+                    "`{0}stop`",
+                    "`{0}repeat`",
+                    "`{0}pause`",
+                    "`{0}resume`",
+                    "`{0}list`",
+                    "`{0}np`"
                 ]
             }
         },
