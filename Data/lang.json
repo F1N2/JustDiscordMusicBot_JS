@@ -5,7 +5,7 @@
             "dafault":{
                 "title":"Commands List",
                 "desc":[
-                    "`{0}help | {0}?`",
+                    "`{0}help` | `{0}?`",
                     "`{0}play (url|string)`",
                     "`{0}skip`",
                     "`{0}stop`",
@@ -13,8 +13,21 @@
                     "`{0}pause`",
                     "`{0}resume`",
                     "`{0}list`",
-                    "`{0}np`"
+                    "`{0}np`",
+                    "`{0}cl`"
                 ]
+            },
+            "music":{
+                "customList":{
+                    "title":"Music Custom List Commands",
+                    "desc":[
+                        "`{0}cl a (url|string)` | `{0}cl add (url|string)`",
+                        "`{0}cl l` | `{0}cl list`",
+                        "`{0}cl p` | `{0}cl play`",
+                        "`{0}cl r (num)` | `{0}cl remove (num)`",
+                        "`{0}cl c` | `{0}cl clear`"
+                    ]
+                }
             }
         },
         "music":{
@@ -63,8 +76,36 @@
             },
             "list":{
                 "nofind":"I can't find the song in queue.",
-                "queue":"Song Queue ( {0} / {1} )",
+                "queue":"Song Queue",
+                "queue_with_count":"Song Queue ( {0} / {1} )",
                 "status":"➯ Status : {0}"
+            },
+            "customList":{
+                "add":{
+                    "title":"Successfully Added!",
+                    "desc":"Successfully added `{0}` Song in Custom List!",
+                    "desc_playlist":"Successfully added {0} Songs in Custom List!"
+                },
+                "play":{
+                    "voice":"You need to be in a Voice Channel.",
+                    "connect":"I don't have permission to connect to the Voice Channel :/",
+                    "speak":"I dont't have permission to speak in the Voice Channel :/",
+                    "list_empty":"Custom List is empty :/"
+                },
+                "list":{
+                    "nofind":"I can't find the song in custom list.",
+                    "queue":"Song Custom List",
+                    "queue_with_count":"Song Custom List ( {0} / {1} )"
+                },
+                "remove":{
+                    "too_high":"Number is too high :/",
+                    "title":"Successfully Removed!",
+                    "desc":"Successfully removed `{0}` Song in Custom List!"
+                },
+                "clear":{
+                    "title":"Successfully Cleared!",
+                    "desc":"Successfully Removed all songs in Custom List!"
+                }
             }
         },
         "unexpected":"Unexpected Error Occured."
@@ -82,8 +123,21 @@
                     "`{0}pause`",
                     "`{0}resume`",
                     "`{0}list`",
-                    "`{0}np`"
+                    "`{0}np`",
+                    "`{0}cl`"
                 ]
+            },
+            "music":{
+                "customList":{
+                    "title":"음악 커스텀 리스트 명령어 목록",
+                    "desc":[
+                        "`{0}cl a (url|string)` | `{0}cl add (url|string)`",
+                        "`{0}cl l` | `{0}cl list`",
+                        "`{0}cl p` | `{0}cl play`",
+                        "`{0}cl r (num)` | `{0}cl remove (num)`",
+                        "`{0}cl c` | `{0}cl clear`"
+                    ]
+                }
             }
         },
         "music":{
@@ -132,8 +186,36 @@
             },
             "list":{
                 "nofind":"재생목록에 등록된 곡이 없습니다.",
-                "queue":"재생 목록 ( {0} / {1} )",
+                "queue":"재생 목록",
+                "queue_with_count":"재생 목록 ( {0} / {1} )",
                 "status":"➯ 상태 : {0}"
+            },
+            "customList":{
+                "add":{
+                    "title":"성공적으로 추가됨!",
+                    "desc":"성공적으로 커스텀 리스트에 `{0}` 곡을 추가했습니다!",
+                    "desc_playlist":"성공적으로 커스텀 리스트에 {0}개의 곡들을 추가했습니다!"
+                },
+                "play":{
+                    "voice":"보이스 채널에 들어가 있어야합니다.",
+                    "connect":"보이스채널에 들어갈 권한이 없습니다 :/",
+                    "speak":"보이스채널에서 노래를 틀수 있는 권한이 없습니다 :/",
+                    "list_empty":"커스텀 리스트가 비었습니다 :/"
+                },
+                "list":{
+                    "nofind":"커스텀 리스트에 있는 곡을 찾지 못했습니다.",
+                    "queue":"음악 커스텀 리스트 목록",
+                    "queue_with_count":"음악 커스텀 리스트 목록 ( {0} / {1} )"
+                },
+                "remove":{
+                    "too_high":"숫자가 너무 큽니다 :/",
+                    "title":"성공적으로 지워짐!",
+                    "desc":"성공적으로 커스텀 리스트에 있는 `{0}` 곡을 지웠습니다!"
+                },
+                "clear":{
+                    "title":"성공적으로 초기화됨!",
+                    "desc":"성공적으로 커스텀 리스트에 있는 모든 곡들을 지웠습니다!"
+                }
             }
         },
         "unexpected":"예기치 못한 오류가 발생했습니다."
