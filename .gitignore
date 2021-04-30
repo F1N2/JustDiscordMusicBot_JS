@@ -3,3 +3,4 @@ text/
 node_modules/
 package-lock.json
 Data/customList.json
+.env

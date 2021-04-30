@@ -15,7 +15,7 @@ Require this source in index.js
 
 let messageReaction = {};
 
-lient.on("messageReactionAdd", function(reaction, user){
+client.on("messageReactionAdd", function(reaction, user){
     if(!user.bot)messageReaction[reaction.message.id]!=null? messageReaction[reaction.message.id].onClick(reaction, user, messageReaction[reaction.message.id].message):null;
 });
 

@@ -8,6 +8,7 @@
 // request
 // request-promise
 // ytdl-core
+// dotenv
 // opusscript
 // fs
 // 
@@ -20,6 +21,9 @@ const client = new Discord.Client();
 const request = require('request-promise');
 const ytdl = require('ytdl-core');
 const fs = require('fs');
+
+//Read token from .env file
+require('dotenv').config();
 
 const Embed = require('./modules/Embed');
 const Music = require('./modules/Music');
@@ -42,7 +46,7 @@ let messageReaction = {};
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`);
     let count=0;
-    client.user.setActivity(`Commands : ${prefix}?`);
+    await client.user.setActivity(`Commands : ${prefix}?`);
     let Activity = setInterval(()=>{
         let str = [`Commands : ${prefix}?`,`Just Discord Music Bot`];
         client.user.setActivity(str[count]);
@@ -58,7 +62,6 @@ client.on("messageReactionAdd", function(reaction, user){
 client.on("messageReactionRemove", function(reaction, user){
     if(!user.bot)messageReaction[reaction.message.id]!=null? messageReaction[reaction.message.id].onClick(reaction, user, messageReaction[reaction.message.id].message):null;
 });
-
 client.on('message', async (message) => {
 
     if(message.author.bot) return;
@@ -106,7 +109,6 @@ client.on('message', async (message) => {
 
             //Music Custom List
             if(msg=='cl') Music.customList.help();
-
 
             if(msg.indexOf('cl l')==0 || msg.indexOf('cl list')==0) Music.customList.list(10,msg.substr(3).replace(/list /g,'').replace(/l /g,'').toLowerCase()=="file"?true:false);
             if(msg.indexOf('cl r')==0 || msg.indexOf('cl remove')==0) Music.customList.remove(msg.substr(3).replace(/remove /g,'').replace(/r /g,''));
