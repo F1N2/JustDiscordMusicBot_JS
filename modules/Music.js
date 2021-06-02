@@ -289,7 +289,8 @@ const Music = {
         else if(0>num || server.queue.length<num) return message.channel.send(lang.music.remove.too);
         else {
             let name = server.queue[num-1].title;
-            server.queue.splice(num-1,1);
+            if(num==1) this.skip(1);
+            else server.queue.splice(num-1,1);
             return message.channel.send(lang.music.remove.result.format(name));
         }
     },
