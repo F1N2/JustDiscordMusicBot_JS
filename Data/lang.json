@@ -9,10 +9,10 @@
                     "`{0}play (url|string)`",
                     "`{0}skip`",
                     "`{0}stop`",
-                    "`{0}repeat`",
+                    "`{0}loop`",
                     "`{0}pause`",
                     "`{0}resume`",
-                    "`{0}list`",
+                    "`{0}queue`",
                     "`{0}np`",
                     "`{0}cl`"
                 ]

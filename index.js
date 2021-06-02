@@ -46,7 +46,6 @@ let messageReaction = {};
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`);
     let count=0;
-    await client.user.setActivity(`Commands : ${prefix}?`);
     let Activity = setInterval(()=>{
         let str = [`Commands : ${prefix}?`,`Just Discord Music Bot`];
         client.user.setActivity(str[count]);
@@ -99,8 +98,8 @@ client.on('message', async (message) => {
     
             if(msg.indexOf('play ')==0 || msg.indexOf('p ')==0) Music.play(msg.replace(/play /g,'').replace(/p /g,''));
             if(msg.indexOf('skip ')==0 || msg.indexOf('sk ')==0) Music.skip(msg.replace(/skip /g,'').replace(/sk /g,''));
-            if(msg.indexOf('list')==0) Music.list(10,msg.substr(5).toLowerCase()=="file"?true:false);
-            if(msg=='repeat' || msg=='rep') Music.repeat();
+            if(msg.indexOf('queue')==0 || msg.indexOf('list')==0) Music.list(10,msg.substr(5).toLowerCase()=="file"?true:false);
+            if(msg=='repeat' || msg=='rep' || msg=='loop') Music.repeat();
             if(msg=='resume' || msg=='res') Music.resume();
             if(msg=='pause' || msg=='pa') Music.pause();
             if(msg=='skip' || msg=='sk') Music.skip();
