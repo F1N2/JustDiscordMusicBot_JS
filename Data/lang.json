@@ -80,6 +80,12 @@
                 "queue_with_count":"Song Queue ( {0} / {1} )",
                 "status":"➯ Status : {0}"
             },
+            "remove":{
+                "voice":"You need to be in a Voice Channel.",
+                "nofind":"I can't find the song in queue.",
+                "too":"The range of numbers is not correct.",
+                "result":"Successfully removed `{0}` Song in queue."
+            },
             "customList":{
                 "add":{
                     "title":"Successfully Added!",
@@ -117,12 +123,13 @@
                 "desc":[
                     "`{0}help | {0}?`",
                     "`{0}play (url|string)`",
+                    "`{0}remove (number)`",
                     "`{0}skip`",
                     "`{0}stop`",
-                    "`{0}repeat`",
+                    "`{0}loop`",
                     "`{0}pause`",
                     "`{0}resume`",
-                    "`{0}list`",
+                    "`{0}queue`",
                     "`{0}np`",
                     "`{0}cl`"
                 ]
@@ -189,6 +196,12 @@
                 "queue":"재생 목록",
                 "queue_with_count":"재생 목록 ( {0} / {1} )",
                 "status":"➯ 상태 : {0}"
+            },
+            "remove":{
+                "voice":"보이스 채널에 들어가 있어야합니다.",
+                "nofind":"재생목록에 등록된 곡이 없습니다.",
+                "too":"숫자의 범위가 맞지 않습니다.",
+                "result":"성공적으로 리스트에 {0}개의 곡들을 추가했습니다."
             },
             "customList":{
                 "add":{

@@ -282,6 +282,17 @@ const Music = {
             }));
         } else return message.channel.send(lang.music.stop.noplay);
     },
+    remove : function(num) {
+        let server = servers[message.guild.id];
+        if(!message.member.voice.channel) return message.channel.send(lang.music.remove.voice);
+        else if(server.queue.length<1) return message.channel.send(lang.music.remove.noplay);
+        else if(0>num || server.queue.length<num) return message.channel.send(lang.music.remove.too);
+        else {
+            let name = server.queue[num-1].title;
+            server.queue.splice(num-1,1);
+            return message.channel.send(lang.music.remove.result.format(name));
+        }
+    },
     skip : function(c) {
         c=!c?1:+c;
         let server = servers[message.guild.id];

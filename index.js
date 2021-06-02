@@ -97,6 +97,7 @@ client.on('message', async (message) => {
             }));
     
             if(msg.indexOf('play ')==0 || msg.indexOf('p ')==0) Music.play(msg.replace(/play /g,'').replace(/p /g,''));
+            if(msg.indexOf('remove ')==0 || msg.indexOf('r ')==0) Music.remove(msg.replace(/remove /g,'').replace(/r /g,''));
             if(msg.indexOf('skip ')==0 || msg.indexOf('sk ')==0) Music.skip(msg.replace(/skip /g,'').replace(/sk /g,''));
             if(msg.indexOf('queue')==0 || msg.indexOf('list')==0) Music.list(10,msg.substr(5).toLowerCase()=="file"?true:false);
             if(msg=='repeat' || msg=='rep' || msg=='loop') Music.repeat();
