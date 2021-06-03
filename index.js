@@ -18,9 +18,6 @@
 
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const request = require('request-promise');
-const ytdl = require('ytdl-core');
-const fs = require('fs');
 
 //Read token from .env file
 require('dotenv').config();
@@ -67,6 +64,7 @@ client.on('message', async (message) => {
 
     Embed.init(message);//Embed Module need message data
     Music.init(message,messageReaction);//Music Module need message,messageReaction data
+    
     messageReaction.send = function(str, arr, callback) {
         try {
             if(typeof callback != "function") return "It is not a function.";
@@ -100,12 +98,12 @@ client.on('message', async (message) => {
             if(msg.indexOf('remove ')==0 || msg.indexOf('r ')==0) Music.remove(msg.replace(/remove /g,'').replace(/r /g,''));
             if(msg.indexOf('skip ')==0 || msg.indexOf('sk ')==0) Music.skip(msg.replace(/skip /g,'').replace(/sk /g,''));
             if(msg.indexOf('queue')==0 || msg.indexOf('list')==0) Music.list(10,msg.substr(5).toLowerCase()=="file"?true:false);
+            if(msg.indexOf('np')==0) Music.nowPlay(msg.substr(5).toLowerCase()=="object"?true:false);
             if(msg=='repeat' || msg=='rep' || msg=='loop') Music.repeat();
             if(msg=='resume' || msg=='res') Music.resume();
             if(msg=='pause' || msg=='pa') Music.pause();
             if(msg=='skip' || msg=='sk') Music.skip();
             if(msg=='stop' || msg=='st') Music.stop();
-            if(msg=='np') Music.nowPlay();
 
             //Music Custom List
             if(msg=='cl') Music.customList.help();

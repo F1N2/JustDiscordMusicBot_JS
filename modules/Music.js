@@ -80,9 +80,11 @@ const Music = {
         File.save('./Data/customList.json',JSON.stringify(customList,null,4));
         return true;
     },
-    nowPlay : function() {
-        let server = servers[message.guild.id]
-        if(server.queue.length>0) {
+    nowPlay : function(object) {
+        let server = servers[message.guild.id];
+        if(server.queue.length<1) return message.channel.send(lang.music.no_song_play);
+        else if(object) return message.channel.send(`${lang.music.np.np}\`\`\`json\n${JSON.stringify(server.queue[0],null,4)}\n\`\`\``);
+        else {
             return message.channel.send(Embed.title_desc({
                 'color':setting.color,
                 'title':lang.music.np.np,
@@ -94,7 +96,7 @@ const Music = {
                     lang.music.np.status.format(!server.repeat?!server.pause?'▶️':'⏸':'🔄')
                 ].join('\n')
             }));
-        } else return message.channel.send(lang.music.no_song_play);
+        }
     },
     ytdl : function(connection) {
         let server = servers[message.guild.id];
@@ -345,9 +347,8 @@ const Music = {
             server.repeat=false;
             return message.channel.send(lang.music.repeat.off);
         }
-        return true;
     },
-    mix : function() {
+    mix : function() {// TODO
         let server = servers[message.guild.id];
         if(!message.member.voice.channel) return message.channel.send(lang.music.join_voice);
         else if(!server.queue) return message.channel.send(lang.music.no_queue_found);
