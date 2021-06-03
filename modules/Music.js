@@ -243,9 +243,10 @@ const Music = {
         }
         return result;
     },
-    list : function(num,file) {
+    list : function(num,type) {
         let server = servers[message.guild.id];
-        if(file) return Util.sendTextFile(lang.music.list.queue+'\n\n'+server.queue.map((e,i)=>(i==0?!server.pause?'▶️':'⏸':i+1)+' : '+e.title+' ('+e.length+')').join('\n'),'list.txt');
+        if(type=='text') return Util.sendTextFile(lang.music.list.queue+'\n\n'+server.queue.map((e,i)=>(i==0?!server.pause?'▶️':'⏸':i+1)+' : '+e.title+' ('+e.length+')').join('\n'),'list.txt');
+        else if(type='object') return Util.sendTextFile(JSON.stringify(server.queue,null,4),'list.json');
         else {
             if(server.queue.length>0) {
                 let result = this.getList(server.queue,num);
