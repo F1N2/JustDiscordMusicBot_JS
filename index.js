@@ -64,7 +64,7 @@ client.on('message', async (message) => {
 
     Embed.init(message);//Embed Module need message data
     Music.init(message,messageReaction);//Music Module need message,messageReaction data
-    
+
     messageReaction.send = function(str, arr, callback) {
         try {
             if(typeof callback != "function") return "It is not a function.";
@@ -98,7 +98,7 @@ client.on('message', async (message) => {
             if(msg.indexOf('remove ')==0 || msg.indexOf('r ')==0) Music.remove(msg.replace(/remove /g,'').replace(/r /g,''));
             if(msg.indexOf('skip ')==0 || msg.indexOf('sk ')==0) Music.skip(msg.replace(/skip /g,'').replace(/sk /g,''));
             if(msg.indexOf('queue')==0 || msg.indexOf('list')==0) Music.list(10,msg.substr(5).toLowerCase()=="file"?true:false);
-            if(msg.indexOf('np')==0) Music.nowPlay(msg.substr(5).toLowerCase()=="object"?true:false);
+            if(msg.indexOf('np')==0) Music.nowPlay(msg.substr(3).toLowerCase()=="object"?true:false);
             if(msg=='repeat' || msg=='rep' || msg=='loop') Music.repeat();
             if(msg=='resume' || msg=='res') Music.resume();
             if(msg=='pause' || msg=='pa') Music.pause();
