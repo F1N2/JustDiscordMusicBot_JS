@@ -246,7 +246,7 @@ const Music = {
     list : function(num,type) {
         let server = servers[message.guild.id];
         if(type=='text') return Util.sendTextFile(lang.music.list.queue+'\n\n'+server.queue.map((e,i)=>(i==0?!server.pause?'▶️':'⏸':i+1)+' : '+e.title+' ('+e.length+')').join('\n'),'list.txt');
-        else if(type='object') return Util.sendTextFile(JSON.stringify(server.queue,null,4),'list.json');
+        else if(type=='object') return Util.sendTextFile(JSON.stringify(server.queue,null,4),'list.json');
         else {
             if(server.queue.length>0) {
                 let result = this.getList(server.queue,num);
@@ -292,7 +292,10 @@ const Music = {
         else if(0>num || server.queue.length<num) return message.channel.send(lang.music.remove.too);
         else {
             let name = server.queue[num-1].title;
-            if(num==1) server.dispatcher.end();
+            if(num==1) {
+                if(server.repeat) server.queue.splice(0,1);
+                server.dispatcher.end();
+            }
             else server.queue.splice(num-1,1);
             return message.channel.send(lang.music.remove.result.format(name));
         }
