@@ -1,0 +1,7 @@
+{
+    "token":"Bot's Token",
+    "client_id":"bot's Application Id",
+    "name":"Bot Name",
+    "color":"Bot's Personal Color ex) #0000ff",
+    "prefix":"Bot's Personal Prefix ex) j."
+}

@@ -1,123 +1,134 @@
-//
-// Just Discord Music Bot
-// Made By Green050121
-//
-// require Module
-//
-// discord.js
-// request
-// request-promise
-// ytdl-core
-// dotenv
-// opusscript
-// fs
-// 
-// Windows : npm install ffmpeg-static
-// Linux : sudo apt-get install ffmpeg
-//
+const { token, name, color, client_id, prefix } = require('./setting/config.json');
+const { Client, Intents } = require('discord.js');
+const client = new Client({
+    shards:'auto',
+    intents:[
+        Intents.FLAGS.GUILDS,
+        Intents.FLAGS.GUILD_MESSAGES,
+        Intents.FLAGS.GUILD_VOICE_STATES
+    ]
+});
 
-const Discord = require('discord.js');
-const client = new Discord.Client();
+//Modules
+// require('./module/set_interaction')(token,client_id);
+const Embed = require('./module/embed');
+const Music = require('./module/music');
+const Util = require('./module/util');
 
-//Read token from .env file
-require('dotenv').config();
-
-const Embed = require('./modules/Embed');
-const Music = require('./modules/Music');
-const File = require('./modules/File');
-
-let setting = JSON.parse(File.read('./Data/setting.json'));
-let lang = JSON.parse(File.read('./Data/lang.json'));
-lang = lang.list.indexOf(setting.lang)!=-1?lang[setting.lang]:lang.en;
-
-let prefix = setting.prefix;
-
-String.prototype.format = String.prototype.f = function() {
-    var s = this,i = arguments.length;
-    while (i--) s = s.replace(new RegExp('\\{' + i + '\\}', 'gm'), arguments[i]);
-    return s;
-};
-
-let messageReaction = {};
-
-client.on('ready', async () => {
+client.on('ready',_=>{
     console.log(`Logged in as ${client.user.tag}!`);
     let count=0;
-    let Activity = setInterval(()=>{
-        let str = [`Commands : ${prefix}?`,`Just Discord Music Bot`];
+    setInterval(()=>{
+        let str = [`help : ${prefix}?`,`Use '/play' to play music`,`JustDiscordMusicBot`];
         client.user.setActivity(str[count]);
-        if(count<str.length-1) count++;
-        else count=0;
+        count = count<str.length-1 ? count+1 : 0;
     },10000);
 });
 
-client.on("messageReactionAdd", function(reaction, user){
-    if(!user.bot)messageReaction[reaction.message.id]!=null? messageReaction[reaction.message.id].onClick(reaction, user, messageReaction[reaction.message.id].message):null;
-});
+client.on('interactionCreate',async interaction => {
 
-client.on("messageReactionRemove", function(reaction, user){
-    if(!user.bot)messageReaction[reaction.message.id]!=null? messageReaction[reaction.message.id].onClick(reaction, user, messageReaction[reaction.message.id].message):null;
-});
-client.on('message', async (message) => {
+    Music.init(interaction);
 
-    if(message.author.bot) return;
+    if(interaction.isContextMenu()) {
+        if(interaction.commandName==='Add to Queue') interaction.reply(await Music.playContext(interaction.channel.messages.cache.get(interaction.targetId).content));
+    }
 
-    Embed.init(message);//Embed Module need message data
-    Music.init(message,messageReaction);//Music Module need message,messageReaction data
+    if(interaction.isButton()) {
+        let id = interaction.customId.split('_');
+        /*
+            id[0] : Main Command
+            id[1] : Sub Command
+            id[2] : User ID
+            id[3] : Data
+        */
+        if(id[2]!==interaction.user.id) return;
 
-    messageReaction.send = function(str, arr, callback) {
-        try {
-            if(typeof callback != "function") return "It is not a function.";
-            if(!Array.isArray(arr)) return "It is not an array.";
-            message.channel.send(str).then((message)=>{
-                arr.forEach((val)=>{
-                    message.react(val).catch((e)=>{});
-                })
-                if(callback!=null) {
-                    messageReaction[message.id]==null? messageReaction[message.id] = {}:null;
-                    messageReaction[message.id].message = message;
-                    messageReaction[message.id].onClick = callback;
-                }
-            }).catch((e)=>{});
-        } catch (e){}
-    }//Made By Cool7
-
-    if(message.content.indexOf(prefix)==0) {
-
-        let msg = message.content.replace(prefix,'');
-
-        if(message.channel.type!='dm') {
-
-            if(msg=='help' || msg=='?') message.channel.send(Embed.title_desc({
-                'color':setting.color,
-                'title':lang.help.dafault.title,
-                'desc':lang.help.dafault.desc.join('\n').format(prefix)
-            }));
-    
-            if(msg.indexOf('play ')==0 || msg.indexOf('p ')==0) Music.play(msg.replace(/play /g,'').replace(/p /g,''));
-            if(msg.indexOf('remove ')==0 || msg.indexOf('r ')==0) Music.remove(msg.replace(/remove /g,'').replace(/r /g,''));
-            if(msg.indexOf('skip ')==0 || msg.indexOf('sk ')==0) Music.skip(msg.replace(/skip /g,'').replace(/sk /g,''));
-            if(msg.indexOf('queue')==0 || msg.indexOf('list')==0) Music.list(10,msg.replace(/queue /g,'').replace(/list /g,''));
-            if(msg.indexOf('np')==0) Music.nowPlay(msg.substr(3).toLowerCase()=="object"?true:false);
-            if(msg=='repeat' || msg=='rep' || msg=='loop') Music.repeat();
-            if(msg=='resume' || msg=='res') Music.resume();
-            if(msg=='pause' || msg=='pa') Music.pause();
-            if(msg=='skip' || msg=='sk') Music.skip();
-            if(msg=='stop' || msg=='st') Music.stop();
-
-            //Music Custom List
-            if(msg=='cl') Music.customList.help();
-
-            if(msg.indexOf('cl l')==0 || msg.indexOf('cl list')==0) Music.customList.list(10,msg.substr(3).replace(/list /g,'').replace(/l /g,'').toLowerCase()=="file"?true:false);
-            if(msg.indexOf('cl r')==0 || msg.indexOf('cl remove')==0) Music.customList.remove(msg.substr(3).replace(/remove /g,'').replace(/r /g,''));
-            if(msg.indexOf('cl a')==0 || msg.indexOf('cl add')==0) Music.customList.add(msg.substr(3).replace(/add /g,'').replace(/a /g,''));
-            if(msg=='cl c' || msg=='cl clear') Music.customList.clear();
-            if(msg=='cl p' || msg=='cl play') Music.customList.play();
-    
+        if(id[0]==='QUEUE') {
+            if(!Music.getQueueData().find(e=>e.id===id[3])) return;
+            if(id[1]==='PREVIOUS') Music.queueButon(id[3],-1);
+            if(id[1]==='NEXT') Music.queueButon(id[3],1);
+            if(id[1]==='DELETE') Music.queueButon(id[3],0);
+        }
+        if(id[0]==='SELECT') {
+            if(!Music.getSelectData().find(e=>e.id===id[3])) return;
+            if(id[1]==='PREVIOUS') Music.selectButton(id[3],-1);
+            if(id[1]==='NEXT') Music.selectButton(id[3],1);
+            if(id[1]==='CANCEL') Music.selectButton(id[3],0);
+            if(id[1]==='SELECT') Music.selectButton(id[3],2);
         }
 
+        await interaction.deferUpdate();
+    }
+
+    if(interaction.isCommand()) {
+        if(interaction.commandName==='play') interaction.reply(await Music.play(interaction.options.getString('keyword')));
+        if(interaction.commandName==='skip') interaction.reply(Music.skip(interaction.options.getInteger('count')||1));
+        if(interaction.commandName==='stop') interaction.reply(Music.stop());
+        if(interaction.commandName==='pause') interaction.reply(Music.pause());
+        if(interaction.commandName==='resume' || interaction.commandName==='unpause') interaction.reply(Music.resume());
+        if(interaction.commandName==='loop' || interaction.commandName==='repeat') interaction.reply(Music.loop());
+        if(interaction.commandName==='shuffle') interaction.reply(Music.shuffle());
+        if(interaction.commandName==='remove') interaction.reply(Music.remove(interaction.options.getInteger('index'),interaction.options.getInteger('count')||1));
+        if(interaction.commandName==='queue') interaction.reply(await Music.queue());
+        if(interaction.commandName==='nowplay') interaction.reply(Music.nowPlay());
     }
 
 });
 
-client.login(process.env.TOKEN||process.argv[2]);
+client.on('messageCreate',async message=>{
+    Music.init(message);
+    if(message.content.startsWith(prefix)) {
+        let cmd = message.content.substr(prefix.length);
+
+        if(cmd==='?' || cmd==='help' || cmd==='도움말') message.channel.send({embeds:[
+            Embed.field({
+                color:color,
+                title:`${name} Command Help`,
+                fields:[
+                    {name:'Help',value:[
+                        `\`${prefix}?\``,
+                        `\`${prefix}help\``,
+                        `\`${prefix}도움말\``
+                    ].join('\n')},
+                    {name:'Music',value:[
+                        `\`${prefix}play\` (keyword|url) : 곡을 재생합니다`,
+                        `\`${prefix}skip\` <count> : 곡을 스킵합니다.`,
+                        `\`${prefix}stop\` : 곡 재생을 중지합니다.`,
+                        `\`${prefix}pause\` : 현재 재생하고 이는 곡을 일시중지합니다.`,
+                        `\`${prefix}resume\` : 일시중지된 곡을 다시 재생합니다.`,
+                        `\`${prefix}loop\` : 곡을 반복하여 재생하거나 반복 기능을 중지합니다.`,
+                        `\`${prefix}shuffle\` : 현재 재생목록에 있는 곡들을 섞습니다.`,
+                        `\`${prefix}remove <index> <count>\` : 재생목록에 있는 특정한 곡을 지웁니다.`,
+                        `\`${prefix}queue\` : 재생목록에 있는 곡 목록은 보여줍니다.`,
+                        `\`${prefix}np\` : 현재 재생중인 곡 정보를 보여줍니다.`,
+                        ``,
+                        `\`<>안에 있는 값은 필수가 아닙니다.\``
+                    ].join('\n')},
+                    {name:'Favorite Music',value:[
+                        '`개발중`'
+                    ].join('\n')}
+                ],
+                thumbnail:client.user.avatarURL(),
+                timestamp:true
+            })
+        ]})
+        if(cmd.startsWith('play ') || cmd.startsWith('p ')) {
+            let res = await Music.play(cmd.replace(/play /g,'').replace(/p /g,''));
+            if(!res.isHide) message.channel.send(res);
+        }
+        if(cmd.startsWith('skip') || cmd.startsWith('sk')) message.channel.send(Music.skip(+cmd.replace(/skip/g,'').replace(/sk/g,'')||1));
+        if(cmd==='stop' || cmd==='st') message.channel.send(Music.stop());
+        if(cmd==='pause') message.channel.send(Music.pause());
+        if(cmd==='resume' || cmd==='unpause') message.channel.send(Music.resume());
+        if(cmd==='loop' || cmd==='repeat') message.channel.send(Music.loop());
+        if(cmd==='shuffle' || cmd==='mix') message.channel.send(Music.shuffle());
+        if(cmd.startsWith('remove')) message.channel.send(Music.remove(+cmd.split(' ')[1]||1,+cmd.split(' ')[2]||1));
+        if(cmd==='queue' || cmd==='list') {
+            let res = await Music.queue();
+            if(!res.isHide) message.channel.send(res);
+        }
+        if(cmd==='nowplay' || cmd=='np') message.channel.send(Music.nowPlay());
+    }
+});
+
+client.login(token);

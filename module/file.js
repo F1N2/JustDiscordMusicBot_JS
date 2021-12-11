@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const File = {
+module.exports = {
     read:function(a,b) {
         try {
             return fs.readFileSync(a,b);
@@ -20,5 +20,3 @@ const File = {
         return true;
     }
 }
-
-module.exports = File;
