@@ -131,4 +131,6 @@ client.on('messageCreate',async message=>{
     }
 });
 
+//Git Push 테스트용 주석
+
 client.login(token);
