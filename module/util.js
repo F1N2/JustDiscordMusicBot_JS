@@ -1,5 +1,11 @@
 const { MessageAttachment } = require('discord.js');
-const { color } = require('../setting/config.json');
+const { token, name, color, client_id, prefix } = {
+    token: process.env.BOT_TOKEN,
+    name: process.env.BOT_NAME,
+    color: process.env.BOT_COLOR,
+    client_id: process.env.BOT_ID,
+    prefix: process.env.BOT_PREFIX
+}
 const Embed = require('./embed');
 const File = require('./file');
 
