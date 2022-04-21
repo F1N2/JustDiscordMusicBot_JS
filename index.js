@@ -1,4 +1,12 @@
-const { token, name, color, client_id, prefix } = require('./setting/config.json');
+// const { token, name, color, client_id, prefix } = require('./setting/config.json');
+const config = require('./setting/config.json');
+const { token, name, color, client_id, prefix } = {
+    token: config.token | process.env.BOT_TOKEN,
+    name: config.name | process.env.BOT_NAME,
+    color: config.color | process.env.BOT_COLOR,
+    client_id: config.client_id | process.env.BOT_ID,
+    prefix: config.prefix | process.env.BOT_PREFIX
+}
 const { Client, Intents } = require('discord.js');
 const client = new Client({
     shards:'auto',
