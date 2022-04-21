@@ -5,7 +5,13 @@ const Component = require('./component');
 const Youtube = require('./youtube');
 const Embed = require('./embed');
 const Util = {error:(e,hide)=>{console.log(e);return{embeds:[Embed.default({color:'#ff0000',title:'오류 발생',desc:`오류가 발생했어요...\n\`\`\`js\n${e}\`\`\``,timestamp:true})],ephemeral:hide?true:false}}}
-const { color } = require('../setting/config.json');
+const { token, name, color, client_id, prefix } = {
+    token: process.env.BOT_TOKEN,
+    name: process.env.BOT_NAME,
+    color: process.env.BOT_COLOR,
+    client_id: process.env.BOT_ID,
+    prefix: process.env.BOT_PREFIX
+}
 
 let servers = [];
 let song_select = [];
